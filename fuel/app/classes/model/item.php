@@ -36,14 +36,16 @@ class Model_Item extends \Orm\Model
         )
     );
 
+    protected static $_belongs_to = array('users');
+
 	public static function validate($factory)
 	{
 		$val = Validation::forge($factory);
 		$val->add_field('title', 'Title', 'required|max_length[255]');
-		$val->add_field('slug', 'Slug', 'required|max_length[255]');
-		$val->add_field('summary', 'Summary', 'required');
+		$val->add_field('slug', 'Slug', 'max_length[255]');
+		$val->add_field('summary', 'Summary', '');
 		$val->add_field('content', 'Content', 'required');
-		$val->add_field('price', 'Price', 'required|max_length[255]');
+		$val->add_field('price', 'Price', 'max_length[255]');
 		$val->add_field('user_id', 'User Id', 'required|valid_string[numeric]');
 		$val->add_field('status', 'Status', 'required|valid_string[numeric]');
 

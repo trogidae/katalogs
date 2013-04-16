@@ -12,7 +12,7 @@
 	<tbody>
 <?php foreach ($categories as $category): ?>		<tr>
 
-			<td><?php echo $category->title; ?></td>
+			<td><?php echo Html::anchor('admin/categories/edit/'.$category->id, $category->title) . ' (' . count($category->items) . ')' ?></td>
 			<td><?php echo $category->slug; ?></td>
 			<td>
 				<?php echo Html::anchor('admin/categories/view/'.$category->id, 'View'); ?> |

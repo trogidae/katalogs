@@ -1,6 +1,6 @@
 <?php
 
-class Controller_GlobalBase extends Controller_Template {
+class Controller_GlobalBase extends Controller_Base {
 
     public function before()
     {

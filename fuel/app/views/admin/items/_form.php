@@ -41,22 +41,30 @@
 
 			</div>
 		</div>
-		<div class="clearfix">
-			<?php echo Form::label('User id', 'user_id'); ?>
+        <div class="clearfix">
+            <?php echo Form::label('Status'); ?>
 
-			<div class="input">
-				<?php echo Form::input('user_id', Input::post('user_id', isset($item) ? $item->user_id : ''), array('class' => 'span4')); ?>
-
-			</div>
-		</div>
-		<div class="clearfix">
-			<?php echo Form::label('Status', 'status'); ?>
-
-			<div class="input">
-				<?php echo Form::input('status', Input::post('status', isset($item) ? $item->status : ''), array('class' => 'span4')); ?>
-
-			</div>
-		</div>
+            <div class="input">
+                <?php echo Form::select('status', Input::post('status', (isset($item)) ? $item->status : '1'),
+                array (
+                      '1' => 'Active',
+                      '0' => 'Inactive'
+                ));?>
+            </div>
+        </div>
+        <div class="clearfix">
+            <?php echo 'Categories'; ?>
+            <?php foreach ($categories as $category):?>
+            <div class="input">
+                <?php echo Form::checkbox('categories[]', $category->id, (isset($item->categories[$category->id])) ? true : false);?><label><?php echo $category->title;?></label>
+            </div>
+            <?php endforeach; ?>
+        </div>
+        <div class="clearfix">
+            <div class="input">
+                <?php echo Form::hidden('user_id', Input::post('user_id', isset($item) ? $item->user_id : $current_user->id), array('class' => 'span4')); ?>
+            </div>
+        </div>
 		<div class="actions">
 			<?php echo Form::submit('submit', 'Save', array('class' => 'btn btn-primary')); ?>
 

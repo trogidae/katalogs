@@ -10,15 +10,6 @@ class Controller_Admin_Items extends Controller_Admin
 
 	}
 
-	public function action_view($id = null)
-	{
-		$data['item'] = Model_Item::find($id);
-
-		$this->template->title = "Item";
-		$this->template->content = View::forge('admin\items/view', $data);
-
-	}
-
 	public function action_create()
 	{
 		if (Input::method() == 'POST')
@@ -27,15 +18,48 @@ class Controller_Admin_Items extends Controller_Admin
 
 			if ($val->run())
 			{
+                //Change the slug to lowercase letters and spaces to -
+                if (Input::post('slug')=='') {
+                    $slug = mb_strtolower(Input::post('title'), 'UTF-8');
+                    $slug = urlencode($slug);
+                    $slug = str_replace("%", "", $slug);
+                }
+                else {
+                    $slug = mb_strtolower(Input::post('slug'), 'UTF-8');
+                    $slug = urlencode($slug);
+                    $slug = str_replace("%", "", $slug);
+                }
+                $slug = str_replace(" ", "-", $slug);
+                //If price not set change it to 0
+                if (Input::post('price')=='') {
+                    $price = 0;
+                }
+                else {
+                    $price = Input::post('price');
+                }
+                $categories = array();
+                if (Input::post('categories')=="") {
+                    $category = Model_Category::find(1);
+                    $categories = array($category);
+                }
+                else {
+                    foreach (Input::post('categories') as $cat_id) {
+                        $category = Model_Category::find($cat_id);
+                        $categories = array_merge_recursive($categories, array($category));
+                    }
+                }
 				$item = Model_Item::forge(array(
 					'title' => Input::post('title'),
-					'slug' => Input::post('slug'),
+					'slug' => $slug,
 					'summary' => Input::post('summary'),
 					'content' => Input::post('content'),
-					'price' => Input::post('price'),
+					'price' => $price,
 					'user_id' => Input::post('user_id'),
 					'status' => Input::post('status'),
 				));
+                foreach ( $categories as $category) {
+                    $item->categories[] = $category;
+                }
 
 				if ($item and $item->save())
 				{
@@ -54,9 +78,10 @@ class Controller_Admin_Items extends Controller_Admin
 				Session::set_flash('error', $val->error());
 			}
 		}
-
+        $categories = Model_Category::find('all');
+        $data['categories']['categories'] = $categories;
 		$this->template->title = "Items";
-		$this->template->content = View::forge('admin\items/create');
+		$this->template->content = View::forge('admin\items/create', $data);
 
 	}
 
@@ -67,11 +92,51 @@ class Controller_Admin_Items extends Controller_Admin
 
 		if ($val->run())
 		{
+            //Change the slug to lowercase letters and spaces to -
+            if (Input::post('slug')=='') {
+                $slug = mb_strtolower(Input::post('title'), 'UTF-8');
+                $slug = urlencode($slug);
+                $slug = str_replace("%", "", $slug);
+            }
+            else {
+                $slug = mb_strtolower(Input::post('slug'), 'UTF-8');
+                $slug = urlencode($slug);
+                $slug = str_replace("%", "", $slug);
+            }
+            $slug = str_replace(" ", "-", $slug);
+            //If price not set change it to 0
+            if (Input::post('price')=='') {
+                $price = 0;
+            }
+            else {
+                $price = Input::post('price');
+            }
+            if (Input::post('categories')=="" && empty($item->categories)) {
+                $category = Model_Category::find(1);
+                $item->categories[] = $category;
+            }
+            else {
+                foreach (Input::post('categories') as $cat_id) {
+                    $category = Model_Category::find($cat_id);
+                    $item->categories[] = $category;
+                }
+            }
+            foreach ($item->categories as $added_cat) {
+                $exists = 0;
+                foreach (Input::post('categories') as $cat_id) {
+                    if ($added_cat->id == $cat_id) {
+                        $exists=1;
+                    }
+                }
+                if (!$exists) {
+                    unset($item->categories[$added_cat->id]);
+                }
+            }
 			$item->title = Input::post('title');
-			$item->slug = Input::post('slug');
+			$item->slug = $slug;
 			$item->summary = Input::post('summary');
 			$item->content = Input::post('content');
-			$item->price = Input::post('price');
+			$item->price = $price;
 			$item->user_id = Input::post('user_id');
 			$item->status = Input::post('status');
 
@@ -105,10 +170,10 @@ class Controller_Admin_Items extends Controller_Admin
 
 			$this->template->set_global('item', $item, false);
 		}
-
+        $categories = Model_Category::find('all');
+        $data['categories']['categories'] = $categories;
 		$this->template->title = "Items";
-		$this->template->content = View::forge('admin\items/edit');
-
+		$this->template->content = View::forge('admin\items/edit', $data);
 	}
 
 	public function action_delete($id = null)

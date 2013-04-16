@@ -26,70 +26,65 @@ class Controller_Admin_Users extends Controller_Admin
 
 	public function action_create()
 	{
-		if (Input::method() == 'POST')
-		{
-			$val = Model_User::validate('create');
-			
-			if ($val->run())
-			{
-				$user = Model_User::forge(array(
-					'username' => Input::post('username'),
-					'password' => Input::post('password'),
-					'group' => Input::post('group'),
-					'email' => Input::post('email'),
-					'last_login' => Input::post('last_login'),
-					'login_hash' => Input::post('login_hash'),
-					'profile_fields' => Input::post('profile_fields'),
-				));
-
-				if ($user and $user->save())
-				{
-					Session::set_flash('success', 'Added user #'.$user->id.'.');
-
-					Response::redirect('users');
-				}
-
-				else
-				{
-					Session::set_flash('error', 'Could not save user.');
-				}
-			}
-			else
-			{
-				Session::set_flash('error', $val->error());
-			}
-		}
-
+        if (!Auth::has_access('users.write')) {
+            Response::redirect('admin/users');
+        }
+        if (Input::method() == 'POST')
+        {
+            $val = Model_User::validate('register');
+            $val->add('password-repeat', 'password-repeat')->add_rule('required')
+                ->add_rule('match_field', 'password');
+            if ($val->run())
+            {
+                if (Auth::create_user(Input::post('username'), Input::post('password'),
+                    Input::post('email'), Input::post('group') ))
+                {
+                    Session::set_flash('success', 'The user has been created.');
+                    //go back to the homepage
+                    Response::redirect('admin\users');
+                }
+                else
+                {
+                    Session::set_flash('error', 'Error');
+                    //go back to the homepage
+                    Response::redirect('admin\users');
+                }
+            }
+            else
+            {
+                Session::set_flash('error', $val->error());
+            }
+        }
 		$this->template->title = "Users";
 		$this->template->content = View::forge('admin\users/create');
-
 	}
 
 	public function action_edit($id = null)
 	{
+        if (!Auth::has_access('users.write')) {
+            Response::redirect('admin/users');
+        }
 		if ( ! $user = Model_User::find($id))
 		{
 			Session::set_flash('error', 'Could not find user #'.$id);
 			Response::redirect('admin\Users');
 		}
 
-		$val = Model_User::validate('edit');
+		$val = Validation::forge();
+        $val->add_field('email', 'Email', 'required|valid_email');
+        $val->add_field('group', 'Group', 'required');
 
 		if ($val->run())
 		{
-			$user->username = Input::post('username');
-			$user->password = Input::post('password');
-			$user->group = Input::post('group');
-			$user->email = Input::post('email');
-			$user->last_login = Input::post('last_login');
-			$user->login_hash = Input::post('login_hash');
-			$user->profile_fields = Input::post('profile_fields');
+			$username = Input::post('username');
+			$group = Input::post('group');
+			$email = Input::post('email');
 
-			if ($user->save())
+			if (Auth::update_user(array('group'=>$group, 'email'=>$email), $username))
 			{
 				Session::set_flash('success', 'Updated user #' . $id);
 
-				Response::redirect('users');
+				Response::redirect('admin/users');
 			}
 
 			else
@@ -103,12 +98,8 @@ class Controller_Admin_Users extends Controller_Admin
 			if (Input::method() == 'POST')
 			{
 				$user->username = $val->validated('username');
-				$user->password = $val->validated('password');
 				$user->group = $val->validated('group');
 				$user->email = $val->validated('email');
-				$user->last_login = $val->validated('last_login');
-				$user->login_hash = $val->validated('login_hash');
-				$user->profile_fields = $val->validated('profile_fields');
 
 				Session::set_flash('error', $val->error());
 			}
@@ -123,6 +114,9 @@ class Controller_Admin_Users extends Controller_Admin
 
 	public function action_delete($id = null)
 	{
+        if (!Auth::has_access('users.write')) {
+            Response::redirect('admin/users');
+        }
 		if ($user = Model_User::find($id))
 		{
 			$user->delete();

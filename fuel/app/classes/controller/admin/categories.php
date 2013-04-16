@@ -10,15 +10,6 @@ class Controller_Admin_Categories extends Controller_Admin
 
 	}
 
-	public function action_view($id = null)
-	{
-		$data['category'] = Model_Category::find($id);
-
-		$this->template->title = "Category";
-		$this->template->content = View::forge('admin\categories/view', $data);
-
-	}
-
 	public function action_create()
 	{
 		if (Input::method() == 'POST')
@@ -27,9 +18,17 @@ class Controller_Admin_Categories extends Controller_Admin
 
 			if ($val->run())
 			{
+                //Change the slug to lowercase letters and spaces to -
+                if (Input::post('slug')=='') {
+                    $slug = mb_strtolower(Input::post('title'), 'UTF-8');
+                }
+                else {
+                    $slug = mb_strtolower(Input::post('slug'), 'UTF-8');
+                }
+                $slug = str_replace(" ", "-", $slug);
 				$category = Model_Category::forge(array(
 					'title' => Input::post('title'),
-					'slug' => Input::post('slug'),
+					'slug' => $slug,
 				));
 
 				if ($category and $category->save())
@@ -62,8 +61,16 @@ class Controller_Admin_Categories extends Controller_Admin
 
 		if ($val->run())
 		{
+            //Change the slug to lowercase letters and spaces to -
+            if (Input::post('slug')=='') {
+                $slug = mb_strtolower(Input::post('title'), 'UTF-8');
+            }
+            else {
+                $slug = mb_strtolower(Input::post('slug'), 'UTF-8');
+            }
+            $slug = str_replace(" ", "-", $slug);
 			$category->title = Input::post('title');
-			$category->slug = Input::post('slug');
+			$category->slug = $slug;
 
 			if ($category->save())
 			{

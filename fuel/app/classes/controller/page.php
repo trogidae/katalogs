@@ -21,6 +21,6 @@ class Controller_Page extends Controller_GlobalBase
         $page = Model_Page::find_by_slug($slug);
         $data['info'] = $page;
         $this->template->title = $page->title;
-        $this->template->content = View::forge('page/view', $data);
+        $this->template->content = View::forge('page/view', $data, false);
     }
 }

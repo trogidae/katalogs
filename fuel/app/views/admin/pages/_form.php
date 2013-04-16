@@ -2,7 +2,7 @@
 
 	<fieldset>
 		<div class="clearfix">
-			<?php echo Form::label('Title *', 'title'); ?>
+			<?php echo Form::label('Title', 'title'); ?>
 
 			<div class="input">
 				<?php echo Form::input('title', Input::post('title', isset($page) ? $page->title : ''), array('class' => 'span4')); ?>
@@ -26,7 +26,7 @@
 			</div>
 		</div>
 		<div class="clearfix">
-			<?php echo Form::label('Content *', 'content'); ?>
+			<?php echo Form::label('Content', 'content'); ?>
 
 			<div class="input">
 				<?php echo Form::textarea('content', Input::post('content', isset($page) ? $page->content : ''), array('class' => 'span8', 'rows' => 8)); ?>
@@ -34,7 +34,7 @@
 			</div>
 		</div>
 		<div class="clearfix">
-			<?php echo Form::label('Status *'); ?>
+			<?php echo Form::label('Status'); ?>
 
 			<div class="input">
                 <?php echo Form::select('status', Input::post('status', (isset($page)) ? $page->status : '1'),

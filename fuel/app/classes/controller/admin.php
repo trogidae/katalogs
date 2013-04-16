@@ -12,7 +12,7 @@ class Controller_Admin extends Controller_Base
 		{
 			if (Auth::check())
 			{
-				if ( ! Auth::member(100))
+				if ( ! Auth::member(100) && ! Auth::member(50) )
 				{
 					Session::set_flash('error', e('You don\'t have access to the admin panel'));
 					Response::redirect('/');

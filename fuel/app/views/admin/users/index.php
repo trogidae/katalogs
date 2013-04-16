@@ -5,12 +5,8 @@
 	<thead>
 		<tr>
 			<th>Username</th>
-			<th>Password</th>
-			<th>Group</th>
-			<th>Email</th>
+            <th>Group</th>
 			<th>Last login</th>
-			<th>Login hash</th>
-			<th>Profile fields</th>
 			<th></th>
 		</tr>
 	</thead>
@@ -18,17 +14,14 @@
 <?php foreach ($users as $user): ?>		<tr>
 
 			<td><?php echo $user->username; ?></td>
-			<td><?php echo $user->password; ?></td>
-			<td><?php echo $user->group; ?></td>
-			<td><?php echo $user->email; ?></td>
-			<td><?php echo $user->last_login; ?></td>
-			<td><?php echo $user->login_hash; ?></td>
-			<td><?php echo $user->profile_fields; ?></td>
+			<td><?php echo ($user->group==100 ? 'Administrator' : ( $user->group==50 ? 'Moderator' : 'Banned')); ?></td>
+			<td><?php echo Date::forge($user->last_login)->format("%Y/%m/%d %H:%M", true); ?></td>
 			<td>
 				<?php echo Html::anchor('admin/users/view/'.$user->id, 'View'); ?> |
-				<?php echo Html::anchor('admin/users/edit/'.$user->id, 'Edit'); ?> |
-				<?php echo Html::anchor('admin/users/delete/'.$user->id, 'Delete', array('onclick' => "return confirm('Are you sure?')")); ?>
-
+                <?php if (Auth::has_access('users.write')):?>
+                    <?php echo Html::anchor('admin/users/edit/'.$user->id, 'Edit'); ?> |
+                    <?php echo Html::anchor('admin/users/delete/'.$user->id, 'Delete', array('onclick' => "return confirm('Are you sure?')")); ?>
+                <?php endif;?>
 			</td>
 		</tr>
 <?php endforeach; ?>	</tbody>

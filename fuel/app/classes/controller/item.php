@@ -15,6 +15,6 @@ class Controller_Item extends Controller_GlobalBase
         $item = Model_Item::find_by_slug($slug);
         $data['info'] = $item;
         $this->template->title = $item->title;
-        $this->template->content = View::forge('item/view', $data);
+        $this->template->content = View::forge('item/view', $data, false);
     }
 }

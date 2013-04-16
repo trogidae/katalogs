@@ -35,7 +35,7 @@ class Model_Category extends \Orm\Model
 	{
 		$val = Validation::forge($factory);
 		$val->add_field('title', 'Title', 'required|max_length[255]');
-		$val->add_field('slug', 'Slug', 'required|max_length[255]');
+		$val->add_field('slug', 'Slug', 'max_length[255]');
 
 		return $val;
 	}
