@@ -18,7 +18,12 @@ class Controller_Admin_Users extends Controller_Admin
 			Session::set_flash('error', 'Could not find user #'.$id);
 			Response::redirect('Users');
 		}
-
+        $data['user']->password = null;
+        $data['user']->login_hash = null;
+        if ($data['user']->group==100) $data['user']->group = 'Administrator';
+        else if ($data['user']->group==50) $data['user']->group = 'Moderator';
+        else if ($data['user']->group==-1) $data['user']->group = 'Banned';
+        $data['user']->last_login = Date::forge($data['user']->last_login)->set_timezone('Europe/Riga')->format("%d.%m.%Y %H:%M");
 		$this->template->title = "User";
 		$this->template->content = View::forge('admin\users/view', $data);
 
@@ -41,13 +46,13 @@ class Controller_Admin_Users extends Controller_Admin
                 {
                     Session::set_flash('success', 'The user has been created.');
                     //go back to the homepage
-                    Response::redirect('admin\users');
+                    Response::redirect('admin/users');
                 }
                 else
                 {
                     Session::set_flash('error', 'Error');
                     //go back to the homepage
-                    Response::redirect('admin\users');
+                    Response::redirect('admin/users');
                 }
             }
             else
@@ -56,7 +61,7 @@ class Controller_Admin_Users extends Controller_Admin
             }
         }
 		$this->template->title = "Users";
-		$this->template->content = View::forge('admin\users/create');
+		$this->template->content = View::forge('admin/users/create');
 	}
 
 	public function action_edit($id = null)

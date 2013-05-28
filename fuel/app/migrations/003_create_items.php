@@ -15,6 +15,7 @@ class Create_items
 			'price' => array('constraint' => 255, 'type' => 'varchar'),
 			'user_id' => array('constraint' => 11, 'type' => 'int'),
 			'status' => array('constraint' => 11, 'type' => 'int'),
+            'image_id' => array('constraint' => 11, 'type' => 'int'),
 			'created_at' => array('constraint' => 11, 'type' => 'int', 'null' => true),
 			'updated_at' => array('constraint' => 11, 'type' => 'int', 'null' => true),
 

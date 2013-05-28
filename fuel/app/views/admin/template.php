@@ -3,34 +3,47 @@
 <head>
 	<meta charset="utf-8">
 	<title><?php echo $title; ?></title>
-	<?php echo Asset::css('bootstrap.css'); ?>
     <?php echo Asset::js('ckeditor/ckeditor.js'); ?>
-	<style>
-		body { margin: 50px; }
-	</style>
-	<?php echo Asset::js(array(
-		'http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js',
-		'bootstrap.js'
-	)); ?>
+    <?php echo Asset::js('jquery.js'); ?>
+    <?php echo Asset::js('jquery-ui-1.8.18.custom.min.js'); ?>
+    <?php echo Asset::js('bootstrap.js'); ?>
+    <?php echo Asset::js('jquery.smooth-scroll.min.js'); ?>
+    <?php echo Asset::js('lightbox.js'); ?>
+    <?php echo Asset::js('functions.js'); ?>
+    <?php echo Asset::css('bootstrap.css'); ?>
+    <?php echo Asset::css('lightbox.css'); ?>
+    <?php echo Asset::css('admin.css'); ?>
 	<script>
 		$(function(){ $('.topbar').dropdown(); });
 	</script>
-    <script>
-        window.onload = function() {
-            CKEDITOR.replace( 'content' );
-        };
-    </script>
 </head>
 <body>
 
 	<?php if ($current_user): ?>
-	<div class="navbar navbar-fixed-top">
-	    <div class="navbar-inner">
+    <div class="navbar navbar-inverse navbar-fixed-top" id="top-navbar">
+        <div class="navbar-inner">
+            <div class="container">
+                <?php echo Html::anchor('/', 'My Site', array ('class'=> 'brand', 'title'=> 'Click to go to main site')) ?>
+                <ul class="nav pull-right">
+                    <li class="settings-link">
+                        <?php echo Html::anchor('admin/settings', 'Settings') ?>
+                    </li>
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#"><?php echo $current_user->username ?> <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><?php echo Html::anchor('admin/logout', 'Logout') ?></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+	<div class="subnavbar" id="top-segments-bar">
+	    <div class="subnavbar-inner">
 	        <div class="container">
-                <?php echo Html::anchor('/', 'My Site', array ('class'=> 'brand')) ?>
 	            <ul class="nav">
 	                <li class="<?php echo Uri::segment(2) == '' ? 'active' : '' ?>">
-						<?php echo Html::anchor('admin', 'Dashboard') ?>
+						<?php echo Html::anchor('admin', '<i class="icon-home icon-white"></i><span>Dashboard</span>') ?>
 					</li>
 
 					<?php foreach (glob(APPPATH.'classes/controller/admin/*.php') as $controller): ?>
@@ -39,32 +52,29 @@
 						$section_segment = basename($controller, '.php');
 						$section_title = Inflector::humanize($section_segment);
 						?>
-
 	                <li class="<?php echo Uri::segment(2) == $section_segment ? 'active' : '' ?>">
-						<?php echo Html::anchor('admin/'.$section_segment, $section_title) ?>
+                        <?php if ($section_segment=='messages') $iconHtml = '<i class="icon-envelope icon-white"></i>';
+                              else if ($section_segment=='users') $iconHtml = '<i class="icon-user icon-white"></i>';
+                              else if ($section_segment=='settings') $iconHtml = '<i class="icon-cog icon-white"></i>';
+                              else if ($section_segment=='items') $iconHtml = '<i class="icon-shopping-cart icon-white"></i>';
+                              else if ($section_segment=='images') $iconHtml = '<i class="icon-picture icon-white"></i>';
+                              else $iconHtml = '<i class="icon-book icon-white"></i>';
+                        ?>
+						<?php echo Html::anchor('admin/'.$section_segment, $iconHtml . '<span>' . $section_title . '</span><span class="caret"></span>') ?>
 					</li>
 					<?php endforeach; ?>
 	          </ul>
-
-	          <ul class="nav pull-right">
-
-	            <li class="dropdown">
-	              <a data-toggle="dropdown" class="dropdown-toggle" href="#"><?php echo $current_user->username ?> <b class="caret"></b></a>
-	              <ul class="dropdown-menu">
-	               <li><?php echo Html::anchor('admin/logout', 'Logout') ?></li>
-	              </ul>
-	            </li>
-	          </ul>
+            <div class="pull-left">
+                <h1><?php echo $title; ?></h1>
+            </div>
 	        </div>
 	    </div>
 	</div>
 	<?php endif; ?>
 
-	<div class="container">
+	<div class="main container">
 		<div class="row">
 			<div class="span12">
-				<h1><?php echo $title; ?></h1>
-				<hr>
 <?php if (Session::get_flash('success')): ?>
 				<div class="alert alert-success">
 					<button class="close" data-dismiss="alert">×</button>
@@ -82,14 +92,13 @@
 <?php echo $content; ?>
 			</div>
 		</div>
-		<hr/>
-		<footer>
-			<p class="pull-right">Page rendered in {exec_time}s using {mem_usage}mb of memory.</p>
-			<p>
-				<a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.<br>
-				<small>Version: <?php echo e(Fuel::VERSION); ?></small>
-			</p>
-		</footer>
 	</div>
+    <footer>
+        <p class="pull-right">Page rendered in {exec_time}s using {mem_usage}mb of memory.</p>
+        <p>
+            <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.<br>
+            <small>Version: <?php echo e(Fuel::VERSION); ?></small>
+        </p>
+    </footer>
 </body>
 </html>

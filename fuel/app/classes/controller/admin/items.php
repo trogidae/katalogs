@@ -1,5 +1,5 @@
 <?php
-class Controller_Admin_Items extends Controller_Admin 
+class Controller_Admin_Items extends Controller_Admin
 {
 
 	public function action_index()
@@ -21,15 +21,14 @@ class Controller_Admin_Items extends Controller_Admin
                 //Change the slug to lowercase letters and spaces to -
                 if (Input::post('slug')=='') {
                     $slug = mb_strtolower(Input::post('title'), 'UTF-8');
-                    $slug = urlencode($slug);
-                    $slug = str_replace("%", "", $slug);
                 }
                 else {
                     $slug = mb_strtolower(Input::post('slug'), 'UTF-8');
-                    $slug = urlencode($slug);
-                    $slug = str_replace("%", "", $slug);
                 }
                 $slug = str_replace(" ", "-", $slug);
+                $slug = iconv("UTF-8", "ISO-8859-1//TRANSLIT", $slug);
+                $slug = urlencode($slug);
+                $slug = str_replace("%", "", $slug);
                 //If price not set change it to 0
                 if (Input::post('price')=='') {
                     $price = 0;
@@ -38,6 +37,7 @@ class Controller_Admin_Items extends Controller_Admin
                     $price = Input::post('price');
                 }
                 $categories = array();
+                $images = array();
                 if (Input::post('categories')=="") {
                     $category = Model_Category::find(1);
                     $categories = array($category);
@@ -48,6 +48,13 @@ class Controller_Admin_Items extends Controller_Admin
                         $categories = array_merge_recursive($categories, array($category));
                     }
                 }
+                $gallery = explode(",", Input::post('gallery'));
+                foreach ($gallery as $image_id) {
+                    if (isset($image_id) && $image_id!=0) {
+                        $image = Model_Image::find($image_id);
+                        $images = array_merge_recursive($images, array($image));
+                    }
+                }
 				$item = Model_Item::forge(array(
 					'title' => Input::post('title'),
 					'slug' => $slug,
@@ -56,9 +63,13 @@ class Controller_Admin_Items extends Controller_Admin
 					'price' => $price,
 					'user_id' => Input::post('user_id'),
 					'status' => Input::post('status'),
+                    'image_id' => Input::post('image_id')
 				));
                 foreach ( $categories as $category) {
                     $item->categories[] = $category;
+                }
+                foreach ( $images as $image) {
+                    $item->gallery[] = $image;
                 }
 
 				if ($item and $item->save())
@@ -78,8 +89,9 @@ class Controller_Admin_Items extends Controller_Admin
 				Session::set_flash('error', $val->error());
 			}
 		}
+        $data['data']['images']['images'] = Model_Image::find('all');
         $categories = Model_Category::find('all');
-        $data['categories']['categories'] = $categories;
+        $data['data']['categories'] = $categories;
 		$this->template->title = "Items";
 		$this->template->content = View::forge('admin\items/create', $data);
 
@@ -95,15 +107,14 @@ class Controller_Admin_Items extends Controller_Admin
             //Change the slug to lowercase letters and spaces to -
             if (Input::post('slug')=='') {
                 $slug = mb_strtolower(Input::post('title'), 'UTF-8');
-                $slug = urlencode($slug);
-                $slug = str_replace("%", "", $slug);
             }
             else {
                 $slug = mb_strtolower(Input::post('slug'), 'UTF-8');
-                $slug = urlencode($slug);
-                $slug = str_replace("%", "", $slug);
             }
             $slug = str_replace(" ", "-", $slug);
+            $slug = iconv("UTF-8", "ISO-8859-1//TRANSLIT", $slug);
+            $slug = urlencode($slug);
+            $slug = str_replace("%", "", $slug);
             //If price not set change it to 0
             if (Input::post('price')=='') {
                 $price = 0;
@@ -111,6 +122,7 @@ class Controller_Admin_Items extends Controller_Admin
             else {
                 $price = Input::post('price');
             }
+            // Work through all the new/deleted categories
             if (Input::post('categories')=="" && empty($item->categories)) {
                 $category = Model_Category::find(1);
                 $item->categories[] = $category;
@@ -132,6 +144,37 @@ class Controller_Admin_Items extends Controller_Admin
                     unset($item->categories[$added_cat->id]);
                 }
             }
+            // Work through all the new/deleted gallery images
+            if (Input::post('gallery')!='') {
+                $images = array();
+                $gallery = explode(",", Input::post('gallery'));
+                foreach ($gallery as $image_id) {
+                    if (isset($image_id) && $image_id!=0) {
+                        $image = Model_Image::find($image_id);
+                        $images = array_merge_recursive($images, array($image));
+                    }
+                }
+                foreach ( $images as $image) {
+                    $item->gallery[] = $image;
+                }
+                foreach ($item->gallery as $added_img) {
+                    $exists = 0;
+                    foreach ($images as $img_id) {
+                        if ($added_img->id == $img_id) {
+                            $exists=1;
+                        }
+                    }
+                    if (!$exists) {
+                        unset($item->gallery[$added_img->id]);
+                    }
+                }
+            }
+            else {
+                foreach ($item->gallery as $img) {
+                    unset($item->gallery[$img->id]);
+                }
+            }
+
 			$item->title = Input::post('title');
 			$item->slug = $slug;
 			$item->summary = Input::post('summary');
@@ -139,6 +182,7 @@ class Controller_Admin_Items extends Controller_Admin
 			$item->price = $price;
 			$item->user_id = Input::post('user_id');
 			$item->status = Input::post('status');
+            $item->image_id = Input::post('image_id');
 
 			if ($item->save())
 			{
@@ -170,8 +214,9 @@ class Controller_Admin_Items extends Controller_Admin
 
 			$this->template->set_global('item', $item, false);
 		}
+        $data['data']['images']['images'] = Model_Image::find('all');
         $categories = Model_Category::find('all');
-        $data['categories']['categories'] = $categories;
+        $data['data']['categories'] = $categories;
 		$this->template->title = "Items";
 		$this->template->content = View::forge('admin\items/edit', $data);
 	}
@@ -193,6 +238,64 @@ class Controller_Admin_Items extends Controller_Admin
 		Response::redirect('admin/items');
 
 	}
+
+    public function action_selected()
+    {
+        if (Input::method() == 'POST') {
+            if (Input::post('check')!="") {
+                if (Input::post('action') == "delete") {
+                    $this->delete_selected(Input::post('check'));
+                }
+                else if (Input::post('action') == "deactivate"){
+                    $this->deactivate_selected(Input::post('check'));
+                }
+                else {
+                    $this->activate_selected(Input::post('check'));
+                }
+            }
+            else {
+                Session::set_flash('error', e('You have not selected anything.'));
+            }
+        }
+        Response::redirect('admin/items');
+    }
+
+    private function delete_selected($items)
+    {
+        foreach ($items as $id) {
+            if ($item = Model_Item::find($id))
+            {
+                $item->delete();
+
+                Session::set_flash('success', e('Deleted items'));
+            }
+
+            else
+            {
+                Session::set_flash('error', e('Could not delete items'));
+            }
+        }
+    }
+
+    private function deactivate_selected($items)
+    {
+        foreach ($items as $id) {
+            $item = Model_Item::find($id);
+            $item->status = '0';
+            $item->save();
+        }
+        Session::set_flash('success', e('Deactivated selected items.'));
+    }
+
+    private function activate_selected($items)
+    {
+        foreach ($items as $id) {
+            $item = Model_Item::find($id);
+            $item->status = '1';
+            $item->save();
+        }
+        Session::set_flash('success', e('Activated selected items.'));
+    }
 
 
 }

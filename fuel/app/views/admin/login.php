@@ -1,33 +1,41 @@
-<?php echo Form::open(array()); ?>
+<div class="widget span4 login">
+    <div class="widget-header">
+        Log in
+    </div>
+    <div class="widget-content">
+        <?php echo Form::open(array()); ?>
 
-	<?php if (isset($_GET['destination'])): ?>
-		<?php echo Form::hidden('destination',$_GET['destination']); ?>
-	<?php endif; ?>
+        <?php if (isset($_GET['destination'])): ?>
+        <?php echo Form::hidden('destination',$_GET['destination']); ?>
+        <?php endif; ?>
 
-	<?php if (isset($login_error)): ?>
-		<div class="error"><?php echo $login_error; ?></div>
-	<?php endif; ?>
+        <?php if (isset($login_error)): ?>
+        <div class="error"><?php echo $login_error; ?></div>
+        <?php endif; ?>
 
-	<div class="row">
-		<label for="email">Email or Username:</label>
-		<div class="input"><?php echo Form::input('email', Input::post('email')); ?></div>
-		
-		<?php if ($val->error('email')): ?>
-			<div class="error"><?php echo $val->error('email')->get_message('You must provide a username or email'); ?></div>
-		<?php endif; ?>
-	</div>
+        <div class="row">
+            <label for="email">Email or Username:</label>
+            <div class="input"><?php echo Form::input('email', Input::post('email')); ?></div>
 
-	<div class="row">
-		<label for="password">Password:</label>
-		<div class="input"><?php echo Form::password('password'); ?></div>
-		
-		<?php if ($val->error('password')): ?>
-			<div class="error"><?php echo $val->error('password')->get_message(':label cannot be blank'); ?></div>
-		<?php endif; ?>
-	</div>
+            <?php if ($val->error('email')): ?>
+            <div class="error"><?php echo $val->error('email')->get_message('You must provide a username or email'); ?></div>
+            <?php endif; ?>
+        </div>
 
-	<div class="actions">
-		<?php echo Form::submit(array('value'=>'Login', 'name'=>'submit', 'class'=>'btn btn-primary')); ?>
-	</div>
+        <div class="row">
+            <label for="password">Password:</label>
+            <div class="input"><?php echo Form::password('password'); ?></div>
 
-<?php echo Form::close(); ?>
+            <?php if ($val->error('password')): ?>
+            <div class="error"><?php echo $val->error('password')->get_message(':label cannot be blank'); ?></div>
+            <?php endif; ?>
+        </div>
+
+        <div class="actions">
+            <?php echo Form::submit(array('value'=>'Login', 'name'=>'submit', 'class'=>'btn btn-primary')); ?>
+        </div>
+
+        <?php echo Form::close(); ?>
+    </div>
+</div>
+

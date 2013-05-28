@@ -1,0 +1,361 @@
+date/time         : 2013-05-22, 12:57:36, 669ms
+computer name     : DANA-DP
+user name         : Dana
+registered owner  : Dana
+operating system  : Windows NT New x64 Service Pack 1 build 7601
+system language   : Latvian
+system up time    : 1 day
+program up time   : 1 second
+processors        : 4x Intel(R) Core(TM) i5-2430M CPU @ 2.40GHz
+physical memory   : 943/4030 MB (free/total)
+free disk space   : (C:) 28,96 GB
+display mode      : 1366x768, 32 bit
+process id        : $3d08
+allocated memory  : 32,69 MB
+command line      : C:\xampp\sendmail\sendmail.exe -oi -f dana.kukaine@gmail.com -t
+executable        : sendmail.exe
+exec. date/time   : 2008-12-02 23:09
+compiled with     : Delphi 2006/07
+madExcept version : 3.0h
+callstack crc     : $7afa08b0, $8be12123, $8be12123
+exception number  : 1
+exception class   : EIdSocketError
+exception message : Socket Error # 10061 Connection refused.
+
+main thread ($363c):
+0043c2a4 +12c sendmail.exe IdIOHandlerStack              325  +38 DoConnectTimeout
+0043c54a +21a sendmail.exe IdIOHandlerStack              398  +55 TIdIOHandlerStack.ConnectClient
+0043bb5f +08b sendmail.exe IdIOHandlerSocket             358  +13 TIdIOHandlerSocket.Open
+004375d4 +228 sendmail.exe IdTCPClient                   326  +44 TIdTCPClientCustom.Connect
+0043e35e +0ca sendmail.exe IdExplicitTLSClientServerBase 279  +22 TIdExplicitTLSClient.Connect
+0045455d +00d sendmail.exe IdSMTP                        418   +1 TIdSMTP.Connect
+004ab9f2 +f8a sendmail.exe sendmail                      754 +301 initialization
+761d33a8 +010 kernel32.dll                                        BaseThreadInitThunk
+
+thread $1a64:
+761d33a8 +10 kernel32.dll  BaseThreadInitThunk
+
+modules:
+00400000 sendmail.exe                      C:\xampp\sendmail
+02120000 ssleay32.dll   0.9.8.18           C:\xampp\php
+10000000 libeay32.dll   0.9.8.18           C:\xampp\php
+6d880000 winrnr.dll     6.1.7600.16385     C:\Windows\System32
+6d890000 pnrpnsp.dll    6.1.7600.16385     C:\Windows\system32
+6d8b0000 napinsp.dll    6.1.7600.16385     C:\Windows\system32
+6e460000 NLAapi.dll     6.1.7601.17761     C:\Windows\system32
+70cf0000 WLIDNSP.DLL    7.250.4311.0       C:\Program Files (x86)\Common Files\Microsoft Shared\Windows Live
+70d20000 mdnsNSP.dll    3.0.0.10           C:\Program Files (x86)\Bonjour
+70d50000 DNSAPI.dll     6.1.7601.17570     C:\Windows\system32
+72e10000 dwmapi.dll     6.1.7600.16385     C:\Windows\system32
+72e30000 uxtheme.dll    6.1.7600.16385     C:\Windows\system32
+73280000 comctl32.dll   5.82.7601.17514    C:\Windows\WinSxS\x86_microsoft.windows.common-controls_6595b64144ccf1df_5.82.7601.17514_none_ec83dffa859149af
+73570000 WINNSI.DLL     6.1.7600.16385     C:\Windows\system32
+73660000 Iphlpapi.DLL   6.1.7601.17514     C:\Windows\system32
+73a10000 wshtcpip.dll   6.1.7600.16385     C:\Windows\System32
+73a20000 mswsock.dll    6.1.7601.17514     C:\Windows\System32
+73df0000 wsock32.dll    6.1.7600.16385     C:\Windows\system32
+73f30000 version.dll    6.1.7600.16385     C:\Windows\system32
+74080000 MSVCR90.dll    9.0.30729.6161     C:\Windows\WinSxS\x86_microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.6161_none_50934f2ebcb7eb57
+74620000 CRYPTBASE.dll  6.1.7600.16385     C:\Windows\syswow64
+74630000 SspiCli.dll    6.1.7601.17856     C:\Windows\syswow64
+74690000 LPK.dll        6.1.7600.16385     C:\Windows\syswow64
+74820000 shell32.dll    6.1.7601.18103     C:\Windows\syswow64
+75490000 RPCRT4.dll     6.1.7601.17514     C:\Windows\syswow64
+755b0000 ADVAPI32.dll   6.1.7601.17514     C:\Windows\syswow64
+75660000 msvcrt.dll     7.0.7601.17744     C:\Windows\syswow64
+758b0000 USP10.dll      1.626.7601.18009   C:\Windows\syswow64
+75950000 WS2_32.dll     6.1.7601.17514     C:\Windows\syswow64
+75990000 comdlg32.dll   6.1.7601.17514     C:\Windows\syswow64
+75bd0000 KERNELBASE.dll 6.1.7601.18015     C:\Windows\syswow64
+75c70000 NSI.dll        6.1.7600.16385     C:\Windows\syswow64
+75d10000 USER32.dll     6.1.7601.17514     C:\Windows\syswow64
+75e10000 oleaut32.dll   6.1.7601.17676     C:\Windows\syswow64
+75ed0000 SHLWAPI.dll    6.1.7601.17514     C:\Windows\syswow64
+75f60000 PSAPI.DLL      6.1.7600.16385     C:\Windows\syswow64
+75f70000 IMM32.DLL      6.1.7601.17514     C:\Windows\system32
+75fd0000 ole32.dll      6.1.7601.17514     C:\Windows\syswow64
+76130000 CLBCatQ.DLL    2001.12.8530.16385 C:\Windows\syswow64
+761c0000 kernel32.dll   6.1.7601.18015     C:\Windows\syswow64
+76510000 sechost.dll    6.1.7600.16385     C:\Windows\SysWOW64
+76530000 GDI32.dll      6.1.7601.17514     C:\Windows\syswow64
+765c0000 MSCTF.dll      6.1.7600.16385     C:\Windows\syswow64
+76f50000 ntdll.dll      6.1.7601.17725     C:\Windows\SysWOW64
+
+processes:
+0000 Idle                         0
+0004 System                       0
+0144 smss.exe                     0
+01c8 avgrsa.exe                   0
+01f8 avgcsrva.exe                 0
+0318 csrss.exe                    0
+036c wininit.exe                  0
+0380 csrss.exe                    1
+03cc winlogon.exe                 1
+03e8 services.exe                 0
+03f4 lsass.exe                    0
+03fc lsm.exe                      0
+033c svchost.exe                  0
+02f4 svchost.exe                  0
+042c atiesrxx.exe                 0
+0468 svchost.exe                  0
+0488 svchost.exe                  0
+04a4 svchost.exe                  0
+04e0 svchost.exe                  0
+04f8 stacsv64.exe                 0
+0654 hpservice.exe                0
+068c svchost.exe                  0
+06e4 wlanext.exe                  0
+06f0 conhost.exe                  0
+073c spoolsv.exe                  0
+0764 svchost.exe                  0
+07ec armsvc.exe                   0
+04a0 AESTSr64.exe                 0
+05e4 AppleMobileDeviceService.exe 0
+06a4 avgwdsvc.exe                 0
+0640 mDNSResponder.exe            0
+080c HPDrvMntSvc.exe              0
+0844 hpHotkeyMonitor.exe          0
+088c MsDtsSrvr.exe                0
+08e8 avgnsa.exe                   0
+0900 avgemca.exe                  0
+0a20 sqlservr.exe                 0
+0a48 msmdsrv.exe                  0
+0ab8 PsiService_2.exe             0
+0af4 ReportingServicesService.exe 0
+0be8 sqlwriter.exe                0
+0bfc svchost.exe                  0
+084c ExtensionUpdaterService.exe  0
+08e4 WLIDSVC.EXE                  0
+0558 WLIDSVCM.EXE                 0
+0c04 unsecapp.exe                 0
+0cc0 WmiPrvSE.exe                 0
+0ce0 avgidsagent.exe              0
+0ee4 hpqWmiEx.exe                 0
+0fcc fdlauncher.exe               0
+052c fdhost.exe                   0
+09c4 svchost.exe                  0
+09c8 conhost.exe                  0
+0c0c atieclxx.exe                 1
+0f6c taskhost.exe                 1 normal
+0c38 dwm.exe                      1 high
+0c50 explorer.exe                 1 normal
+0ecc sttray64.exe                 1 normal
+0c94 SynTPEnh.exe                 1 above normal
+0314 hkcmd.exe                    1 normal
+06e0 igfxpers.exe                 1 normal
+1078 TiltWheelMouse.exe           1 normal       C:\Windows\System32
+10f0 iCloudServices.exe           1 normal       C:\Program Files (x86)\Common Files\Apple\Internet Services
+1114 ApplePhotoStreams.exe        1 normal       C:\Program Files (x86)\Common Files\Apple\Internet Services
+1128 flux.exe                     1 normal       C:\Users\Dana\Local Settings\Apps\F.lux
+118c Dropbox.exe                  1 normal       C:\Users\Dana\AppData\Roaming\Dropbox\bin
+11ec avgtray.exe                  1 normal       C:\Program Files (x86)\AVG\AVG2012
+11f8 QLBController.exe            1 normal
+1200 IAStorIcon.exe               1 normal       C:\Program Files (x86)\Intel\Intel(R) Rapid Storage Technology
+1248 nusb3mon.exe                 1 normal       C:\Program Files (x86)\Renesas Electronics\USB 3.0 Host Controller Driver\Application
+136c AiChargerAP.exe              1 normal       C:\Program Files (x86)\ASUS\ASUS Ai Charger
+13ac iTunesHelper.exe             1 normal       C:\Program Files (x86)\iTunes
+13b4 jusched.exe                  1 normal       C:\Program Files (x86)\Common Files\Java\Java Update
+109c SearchIndexer.exe            0
+12b4 iPodService.exe              0
+0420 SynTPHelper.exe              1
+128c APSDaemon.exe                1 normal       C:\Program Files (x86)\Common Files\Apple\Apple Application Support
+106c wmpnetwk.exe                 0
+144c svchost.exe                  0
+15bc IAStorDataMgrSvc.exe         0
+12a4 MOM.exe                      1 normal
+12a8 CCC.exe                      1 normal
+119c PresentationFontCache.exe    0
+0820 opera.exe                    1 normal       C:\Program Files (x86)\Opera
+156c Skype.exe                    1 normal       C:\Program Files (x86)\Skype\Phone
+05d8 PhpStorm.exe                 1 normal       C:\Program Files (x86)\JetBrains\PhpStorm\bin
+1324 fsnotifier.exe               1 normal       C:\Program Files (x86)\JetBrains\PhpStorm\bin
+1334 conhost.exe                  1 normal
+1768 xampp-control.exe            1 normal       C:\xampp
+1900 mysqld.exe                   1 normal       C:\xampp\mysql\bin
+3a84 iTunes.exe                   1 normal       C:\Program Files (x86)\iTunes
+2788 AppleMobileDeviceHelper.exe  1 normal       C:\Program Files (x86)\Common Files\Apple\Mobile Device Support
+3ba4 conhost.exe                  1 normal
+3890 distnoted.exe                1 normal       C:\Program Files (x86)\Common Files\Apple\Apple Application Support
+36cc conhost.exe                  1 normal
+36a8 Last.fm Scrobbler.exe        1 normal       C:\Program Files (x86)\Last.fm
+3a78 SyncServer.exe               1 normal       C:\Program Files (x86)\Common Files\Apple\Mobile Device Support
+3950 conhost.exe                  1 normal
+24f8 notepad.exe                  1 normal
+2514 OSPPSVC.EXE                  0
+3e54 notepad.exe                  1 normal
+3c5c Fences.exe                   1 normal
+1848 httpd.exe                    1 normal       C:\xampp\apache\bin
+3038 httpd.exe                    1 normal       C:\xampp\apache\bin
+3f84 audiodg.exe                  0
+3a6c SearchProtocolHost.exe       0
+0fd4 SearchFilterHost.exe         0
+3a70 cmd.exe                      1 normal       C:\Windows\SysWOW64
+0cd4 conhost.exe                  1 normal
+3d08 sendmail.exe                 1 normal       C:\xampp\sendmail
+
+hardware:
++ Batteries
+  - Microsoft AC Adapter
+  - Microsoft ACPI-Compliant Control Method Battery
+  - Microsoft Composite Battery
++ Bluetooth Radios
+  - Generic Bluetooth Adapter
++ Computer
+  - ACPI x64-based PC
++ Disk drives
+  - SAMSUNG HM641JI
++ Display adapters
+  - Intel(R) HD Graphics Family (driver 8.910.0.0)
++ DVD/CD-ROM drives
+  - DTSOFT Virtual CdRom Device
+  - hp DVD A  DS8A5LH
++ Human Interface Devices
+  - HID-compliant consumer control device
+  - HID-compliant device
+  - HID-compliant device
+  - USB Input Device
+  - USB Input Device
++ IDE ATA/ATAPI controllers
+  - Intel(R) Mobile Express Chipset SATA AHCI Controller (driver 10.1.2.1004)
++ Imaging devices
+  - HP HD Webcam [Fixed] (driver 5.9.8010.0)
++ Keyboards
+  - Standard 101/102-Key or Microsoft Natural PS/2 Keyboard with HP QLB (driver 7.0.1.1)
++ Memory technology driver
+  - JMicron PCIe MS Host Controller (driver 1.0.57.2)
+  - JMicron PCIe SD Host Controller (driver 1.0.57.2)
+  - JMicron PCIe SD/MMC Host Controller (driver 1.0.57.2)
++ Mice and other pointing devices
+  - HID-compliant mouse
+  - Synaptics PS/2 Port TouchPad (driver 15.3.25.0)
++ Monitors
+  - Generic PnP Monitor
+  - Generic PnP Monitor
++ Network adapters
+  - Atheros AR9285 802.11b/g/n WiFi Adapter (driver 9.2.0.444)
+  - Microsoft Virtual WiFi Miniport Adapter
+  - Realtek PCIe GBE Family Controller (driver 7.46.610.2011)
+  - VirtualBox Host-Only Ethernet Adapter (driver 4.2.0.0)
++ Processors
+  - Intel(R) Core(TM) i5-2430M CPU @ 2.40GHz
+  - Intel(R) Core(TM) i5-2430M CPU @ 2.40GHz
+  - Intel(R) Core(TM) i5-2430M CPU @ 2.40GHz
+  - Intel(R) Core(TM) i5-2430M CPU @ 2.40GHz
++ Sound, video and game controllers
+  - High Definition Audio Device
+  - IDT High Definition Audio CODEC (driver 6.10.6341.0)
++ Storage volume shadow copies
+  - Generic volume shadow copy
+  - Generic volume shadow copy
+  - Generic volume shadow copy
+  - Generic volume shadow copy
++ System devices
+  - 2nd generation Intel(R) Core(TM) processor family DRAM Controller - 0104 (driver 9.2.0.1011)
+  - 2nd generation Intel(R) Core(TM) processor family PCI Express Controller - 0101 (driver 9.2.0.1011)
+  - ACPI Fixed Feature Button
+  - ACPI Lid
+  - ACPI Sleep Button
+  - ACPI Thermal Zone
+  - ACPI Thermal Zone
+  - ACPI Thermal Zone
+  - ACPI Thermal Zone
+  - ACPI Thermal Zone
+  - ACPI Thermal Zone
+  - Composite Bus Enumerator
+  - DAEMON Tools Virtual Bus (driver 5.0.1.282)
+  - Direct Application Launch Button
+  - Direct memory access controller
+  - Extended IO Bus
+  - File as Volume Driver
+  - High Definition Audio Controller
+  - High precision event timer
+  - HP Mobile Data Protection Sensor (driver 4.2.2.1)
+  - Intel(R) 6 Series/C200 Series Chipset Family PCI Express Root Port 1 - 1C10 (driver 9.2.0.1016)
+  - Intel(R) 6 Series/C200 Series Chipset Family PCI Express Root Port 2 - 1C12 (driver 9.2.0.1016)
+  - Intel(R) 6 Series/C200 Series Chipset Family PCI Express Root Port 3 - 1C14 (driver 9.2.0.1016)
+  - Intel(R) 6 Series/C200 Series Chipset Family PCI Express Root Port 4 - 1C16 (driver 9.2.0.1016)
+  - Intel(R) 6 Series/C200 Series Chipset Family PCI Express Root Port 6 - 1C1A (driver 9.2.0.1016)
+  - Intel(R) 6 Series/C200 Series Chipset Family PCI Express Root Port 8 - 1C1E (driver 9.2.0.1016)
+  - Intel(R) 82802 Firmware Hub Device
+  - Intel(R) HM65 Express Chipset Family LPC Interface Controller - 1C49 (driver 9.2.0.1016)
+  - Intel(R) Management Engine Interface
+  - Microsoft ACPI-Compliant Embedded Controller
+  - Microsoft ACPI-Compliant System
+  - Microsoft System Management BIOS Driver
+  - Microsoft Virtual Drive Enumerator Driver
+  - Microsoft Windows Management Interface for ACPI
+  - Motherboard resources
+  - Motherboard resources
+  - Motherboard resources
+  - Motherboard resources
+  - Numeric data processor
+  - PCI bus
+  - Plug and Play Software Device Enumerator
+  - Programmable interrupt controller
+  - Remote Desktop Device Redirector Bus
+  - System CMOS/real time clock
+  - System timer
+  - Terminal Server Keyboard Driver
+  - Terminal Server Mouse Driver
+  - UMBus Enumerator
+  - UMBus Root Bus Enumerator
+  - Volume Manager
++ Universal Serial Bus controllers
+  - Generic USB Hub
+  - Generic USB Hub
+  - Intel(R) 6 Series/C200 Series Chipset Family USB Enhanced Host Controller - 1C26 (driver 9.2.0.1021)
+  - Intel(R) 6 Series/C200 Series Chipset Family USB Enhanced Host Controller - 1C2D (driver 9.2.0.1021)
+  - Renesas Electronics USB 3.0 Host Controller (driver 2.1.19.0)
+  - Renesas Electronics USB 3.0 Root Hub (driver 2.1.19.0)
+  - USB Composite Device
+  - USB Composite Device
+  - USB Root Hub
+  - USB Root Hub
+
+cpu registers:
+eax = 01fff938
+ebx = 004ab767
+ecx = 01fff938
+edx = 0043c2a9
+esi = 00000000
+edi = 0018fe18
+eip = 0043c2a9
+esp = 0018fd20
+ebp = 0018fd7c
+
+stack dump:
+0018fd20  a9 c2 43 00 de fa ed 0e - 01 00 00 00 07 00 00 00  ..C.............
+0018fd30  34 fd 18 00 a9 c2 43 00 - 38 f9 ff 01 67 b7 4a 00  4.....C.8...g.J.
+0018fd40  00 00 00 00 18 fe 18 00 - 7c fd 18 00 50 fd 18 00  ........|...P...
+0018fd50  5c fd 18 00 58 4b 40 00 - 7c fd 18 00 88 fd 18 00  \...XK@.|.......
+0018fd60  58 4b 40 00 7c fd 18 00 - 00 00 00 00 70 b3 fb 01  XK@.|.......p...
+0018fd70  19 00 00 00 7d 00 00 00 - 00 00 00 00 b0 fd 18 00  ....}...........
+0018fd80  4f c5 43 00 b0 fd 18 00 - c4 fd 18 00 58 4b 40 00  O.C.........XK@.
+0018fd90  b0 fd 18 00 c4 fd 18 00 - 91 46 40 00 b0 fd 18 00  .........F@.....
+0018fda0  00 00 00 00 19 00 00 00 - 00 00 00 00 20 8e f8 01  ................
+0018fdb0  bc fd 18 00 65 bb 43 00 - 20 8e f8 01 f8 fd 18 00  ....e.C.........
+0018fdc0  d7 75 43 00 d0 fd 18 00 - ef 4c 40 00 f8 fd 18 00  .uC......L@.....
+0018fdd0  24 fe 18 00 58 4b 40 00 - f8 fd 18 00 18 fe 18 00  $...XK@.........
+0018fde0  00 00 00 00 67 b7 4a 00 - ce 2e 40 00 dd 53 40 00  ....g.J...@..S@.
+0018fdf0  00 00 00 00 e0 59 fa 01 - 04 fe 18 00 63 e3 43 00  .....Y......c.C.
+0018fe00  e0 59 fa 01 1c fe 18 00 - 62 45 45 00 18 fe 18 00  .Y......bEE.....
+0018fe10  00 00 00 00 67 b7 4a 00 - e0 59 fa 01 88 ff 18 00  ....g.J..Y......
+0018fe20  f8 b9 4a 00 30 fe 18 00 - 58 4b 40 00 88 ff 18 00  ..J.0...XK@.....
+0018fe30  3c fe 18 00 58 4b 40 00 - 88 ff 18 00 48 fe 18 00  <...XK@.....H...
+0018fe40  ef 4c 40 00 88 ff 18 00 - 7c ff 18 00 58 4b 40 00  .L@.....|...XK@.
+0018fe50  88 ff 18 00 00 00 00 00 - 00 00 00 00 00 e0 fd 7e  ...............~
+
+disassembling:
+[...]
+0043c292       mov     eax, [ebp-$10]
+0043c295       mov     ecx, [eax+$44]
+0043c298       mov     dl, 1
+0043c29a       mov     eax, [$42dd08]
+0043c29f       call    -$d8a0 ($42ea04)       ; IdStack.EIdSocketError.CreateError
+0043c2a4     > call    -$3762d ($404c7c)      ; System.@RaiseExcept
+0043c2a9 327   mov     eax, [ebp-$10]
+0043c2ac       mov     edx, [eax+$48]
+0043c2af       mov     eax, [$4338c0]
+0043c2b4       call    -$1b5fd ($420cbc)      ; IdException.EIdException.Toss
+0043c2b9       jmp     loc_43c2f0
+[...]

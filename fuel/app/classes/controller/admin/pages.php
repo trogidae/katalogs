@@ -1,5 +1,5 @@
 <?php
-class Controller_Admin_Pages extends Controller_Admin 
+class Controller_Admin_Pages extends Controller_Admin
 {
 
 	public function action_index()
@@ -132,6 +132,64 @@ class Controller_Admin_Pages extends Controller_Admin
 		Response::redirect('admin/pages');
 
 	}
+
+    public function action_selected()
+    {
+        if (Input::method() == 'POST') {
+            if (Input::post('check')!="") {
+                if (Input::post('action') == "delete") {
+                    $this->delete_selected(Input::post('check'));
+                }
+                else if (Input::post('action') == "deactivate"){
+                    $this->deactivate_selected(Input::post('check'));
+                }
+                else {
+                    $this->activate_selected(Input::post('check'));
+                }
+            }
+            else {
+                Session::set_flash('error', e('You have not selected anything.'));
+            }
+        }
+        Response::redirect('admin/pages');
+    }
+
+    private function delete_selected($pages)
+    {
+        foreach ($pages as $id) {
+            if ($page = Model_Page::find($id))
+            {
+                $page->delete();
+
+                Session::set_flash('success', e('Deleted pages'));
+            }
+
+            else
+            {
+                Session::set_flash('error', e('Could not delete pages'));
+            }
+        }
+    }
+
+    private function deactivate_selected($pages)
+    {
+        foreach ($pages as $id) {
+            $page = Model_Page::find($id);
+            $page->status = '0';
+            $page->save();
+        }
+        Session::set_flash('success', e('Deactivated selected pages.'));
+    }
+
+    private function activate_selected($pages)
+    {
+        foreach ($pages as $id) {
+            $page = Model_Page::find($id);
+            $page->status = '1';
+            $page->save();
+        }
+        Session::set_flash('success', e('Activated selected categories.'));
+    }
 
 
 }

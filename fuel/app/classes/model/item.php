@@ -10,6 +10,7 @@ class Model_Item extends \Orm\Model
 		'price',
 		'user_id',
 		'status',
+        'image_id',
 		'created_at',
 		'updated_at',
 	);
@@ -33,10 +34,18 @@ class Model_Item extends \Orm\Model
             'key_through_to' => 'category_id', // column 2 from the table in between, should match a users.id
             'model_to' => 'Model_Category',
             'key_to' => 'id',
+        ),
+        'gallery' => array(
+            'key_from' => 'id',
+            'key_through_from' => 'item_id', // column 1 from the table in between, should match a posts.id
+            'table_through' => 'items_images', // both models plural without prefix in alphabetical order
+            'key_through_to' => 'image_id', // column 2 from the table in between, should match a users.id
+            'model_to' => 'Model_Image',
+            'key_to' => 'id',
         )
     );
 
-    protected static $_belongs_to = array('users');
+    protected static $_belongs_to = array('users', 'images');
 
 	public static function validate($factory)
 	{
@@ -48,6 +57,7 @@ class Model_Item extends \Orm\Model
 		$val->add_field('price', 'Price', 'max_length[255]');
 		$val->add_field('user_id', 'User Id', 'required|valid_string[numeric]');
 		$val->add_field('status', 'Status', 'required|valid_string[numeric]');
+        $val->add_field('image_id', 'Image Id', 'valid_string[numeric]');
 
 		return $val;
 	}

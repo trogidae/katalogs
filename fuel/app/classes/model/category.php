@@ -5,6 +5,8 @@ class Model_Category extends \Orm\Model
 		'id',
 		'title',
 		'slug',
+        'status',
+        'parent_id',
 		'created_at',
 		'updated_at',
 	);
@@ -31,12 +33,23 @@ class Model_Category extends \Orm\Model
         )
     );
 
+    protected static $_belongs_to = array(
+        'categories' => array(
+            'key_from' => 'parent_id',
+            'model_to' => 'Model_Category',
+            'key_to' => 'id',
+            'cascade_save' => true,
+            'cascade_delete' => false,
+        )
+    );
+
 	public static function validate($factory)
 	{
 		$val = Validation::forge($factory);
 		$val->add_field('title', 'Title', 'required|max_length[255]');
 		$val->add_field('slug', 'Slug', 'max_length[255]');
-
+        $val->add_field('status', 'Status', 'required|valid_string[numeric]');
+        $val->add_field('parent_id', 'Parent', 'valid_string[numeric]');
 		return $val;
 	}
 

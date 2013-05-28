@@ -82,8 +82,10 @@ class Controller_Admin extends Controller_Base
 	 */
 	public function action_index()
 	{
+        $data['items'] = Model_Item::find('all', array('order_by' => array('created_at' => 'desc'), 'limit' => 5));
+        $data['messages'] = Model_Message::find('all', array('order_by' => array('created_at' => 'desc'), 'limit' => 5));
 		$this->template->title = 'Dashboard';
-		$this->template->content = View::forge('admin/dashboard');
+		$this->template->content = View::forge('admin/dashboard', $data);
 	}
 
 }

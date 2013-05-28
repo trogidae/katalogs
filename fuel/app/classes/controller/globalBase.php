@@ -2,6 +2,8 @@
 
 class Controller_GlobalBase extends Controller_Base {
 
+    protected $_settings;
+
     public function before()
     {
         parent::before();
@@ -20,6 +22,11 @@ class Controller_GlobalBase extends Controller_Base {
         $categories = Model_Category::find('all');
         View::set_global('pages', $activePages);
         View::set_global('categories', $categories);
+
+        //Settings
+        $settings = Model_Setting::find(1);
+        $this->_settings = $settings;
+        View::set_global('settings', $settings);
     }
 
 }
