@@ -2,4 +2,4 @@
 
 <p><?php echo $info->content;?></p>
 
-<?php if ($info->id==$settings->contact_page) echo render('page/_form'); ?>
+<?php if ($info->id==$settings['contact_page']->value) echo render('page/_form'); ?>

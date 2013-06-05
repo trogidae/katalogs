@@ -1,30 +1,30 @@
 <?php
-    $itemsInRow = 3;
+    $itemsInRow = 4;
 ?>
-<ul id="items">
+<ul id="items" class="thumbnails">
     <div class="row">
-    <?php $counter=1; foreach ($items as $item): ?>
-    <?php $itemHtml=0;
-        if ($counter-1%$itemsInRow == 0): ?>
+    <?php $counter=0; foreach ($items as $item): ?>
+    <?php $itemHtml = null;
+        if ($counter == 4):
+            $counter=0; ?>
     </div>
     <div class="row">
     <?php endif; ?>
-    <li class="span3">
-        <?php if ($item->images->id!=1): ?>
-        <?php $itemHtml = '<img src=' . Uri::base(false) . $item->images->thumb . '_150x200.' . $item->images->extension . ' alt=' . $item->images->alt_text . '>' ;?>
-        <?php endif; ?>
+    <li class="span4">
+        <?php $itemHtml = '<img src=' . Uri::base(false) . $item->images->thumb . '_150x200.' . $item->images->extension . ' alt=' . $item->images->name . '>' ;?>
         <?php $itemHtml = $itemHtml . '<h4>' . $item->title  . '</h4>' . '<p>' . $item->summary . '</p>'; ?>
-        <?php if ($item->price != $item->price): ?>
-        <?php $itemHtml = $itemHtml . '<div class="btn-group">
-            <button class="btn disabled old-price">' . $settings->currency . ' ' . $item->price . '</button>
-            <button class="btn disabled new-price">' . $settings->currency . ' ' . $item->price . '</button>
-        </div>'; ?>
-        <?php else: ?>
-        <?php $itemHtml = $itemHtml . '<button class="btn disabled new-price">' . $settings->currency . ' ' . $item->price . '</button>'; ?>
+        <?php if ($item->price): ?>
+        <?php $itemHtml = $itemHtml . '<button class="btn disabled new-price">' . $settings['currency']->value . ' ' . $item->price . '</button>'; ?>
         <?php endif; ?>
-        <?php echo Html::anchor('item/view/' . $item->slug, $itemHtml); ?>
+        <?php echo Html::anchor('item/view/' . $item->slug, $itemHtml, array('class' => 'thumbnail')); ?>
     </li>
     <?php $counter++; ?>
     <?php endforeach; ?>
     </div>
 </ul>
+<?php echo Pagination::instance('pagination')->render(); ?>
+<script>
+    $(window).load(function() {
+        sameHeight($('#items .row'), $('li a'));
+    });
+</script>

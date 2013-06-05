@@ -97,7 +97,7 @@ return array(
             'quality' => 100,
             'bgcolor' => null,
             'actions' => array(
-                array('crop_resize', 150, 200)
+                array('crop_resize', 150, 170)
             )
         ),
         '100x100' => array(

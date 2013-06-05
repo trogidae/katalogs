@@ -3,19 +3,19 @@
         <div class="widget-content">
             <div class="stat">
                 <h3><?php echo Model_Category::count(); ?></h3>
-                <span class="value">Categories</span>
+                <span class="value"><?php echo Lang::get('Categories'); ?></span>
             </div>
             <div class="stat">
                 <h3><?php echo Model_Item::count(); ?></h3>
-                <span class="value">Items</span>
+                <span class="value"><?php echo Lang::get('Items'); ?></span>
             </div>
             <div class="stat">
                 <h3><?php echo Model_Page::count(); ?></h3>
-                <span class="value">Pages</span>
+                <span class="value"><?php echo Lang::get('Pages'); ?></span>
             </div>
             <div class="stat">
                 <h3><?php echo Model_Message::count(); ?></h3>
-                <span class="value">Messages</span>
+                <span class="value"><?php echo Lang::get('Messages'); ?></span>
             </div>
         </div>
     </div>
@@ -23,7 +23,7 @@
 <div class="row">
 	<div class="widget span4">
 		<div class="widget-header">
-            <h4>Newest messages</h4>
+            <h4><?php echo Lang::get('Newest messages'); ?></h4>
 		</div>
         <div class="widget-content">
             <ul>
@@ -35,7 +35,7 @@
 	</div>
     <div class="widget span4">
         <div class="widget-header">
-            <h4>Recently added items</h4>
+            <h4><?php echo Lang::get('Recently added items'); ?></h4>
         </div>
         <div class="widget-content">
             <ul>
@@ -47,12 +47,12 @@
     </div>
 	<div class="widget span4">
         <div class="widget-header">
-            <h4>Welcome, <?php echo Html::anchor('admin/users/view/' . $current_user->id, $current_user->username); ?></h4>
+            <h4><?php echo Lang::get('Welcome'); ?>, <?php echo Html::anchor('admin/users/view/' . $current_user->id, $current_user->username); ?></h4>
         </div>
         <div class="widget-content">
             <ul>
-                <li>Pages by you: <?php echo count($current_user->pages); ?></li>
-                <li>Items by you: <?php echo count($current_user->items); ?></li>
+                <li><?php echo Lang::get('Pages by you'); ?>: <?php echo count($current_user->pages); ?></li>
+                <li><?php echo Lang::get('Items by you'); ?>: <?php echo count($current_user->items); ?></li>
             </ul>
         </div>
 	</div>

@@ -1,13 +1,20 @@
 <?php
-
+/**
+ * Bazes klase sākuma lapām
+ *
+ * Autors: Dana Kukaine
+ * Pēdējo reizi mainīts: 01.06.2013.
+ */
 class Controller_GlobalBase extends Controller_Base {
 
-    protected $_settings;
-
+    /**
+     * Funkcija, kas izpildās pirms jebkuras citas funkcijas, kas pieder šai klasei
+     * galvenais mērķis - globalizēt vajadzīgos datus - lapas, kategorijas, iestatījumus, logrīkus
+     */
     public function before()
     {
         parent::before();
-        //Find all active pages to show in the menu
+        //Atrod visas aktīvās lapas
         $pages = Model_Page::find('all');
         $activePages = array();
         foreach ($pages as $page) {
@@ -18,15 +25,40 @@ class Controller_GlobalBase extends Controller_Base {
             }
         }
 
-        //Find all categories
-        $categories = Model_Category::find('all');
+        //Atrod visas kategorijas, kas ir aktīvas
+        $categories = Model_Category::query()
+                                ->where('status', 1)
+                                ->get();
+        //Izveido tādu masīvu, lai skatā ir vienkārši realizēt izkrītošo izvēlni
+        $withChildren = array();
+        foreach ($categories as $category) {
+            if (isset($category->parent_id)) {
+                if (isset($withChildren[$category->parent_id])) {
+                    $withChildren[$category->parent_id] += array ($category->id => $category);
+                }
+                else {
+                    $withChildren += array ($category->parent_id => array($category->id => $category));
+                }
+            }
+        }
         View::set_global('pages', $activePages);
         View::set_global('categories', $categories);
+        View::set_global('withChildren', $withChildren);
 
-        //Settings
-        $settings = Model_Setting::find(1);
-        $this->_settings = $settings;
-        View::set_global('settings', $settings);
+        //Logrīki
+        $widgets['sidebar'] = Model_Widget::find('all', array(
+                                             'where' => array(
+                                                 array('type', 1),
+                                             ),
+                                             'order_by' => array('position' => 'asc'),
+        ));
+        $widgets['footer'] = Model_Widget::find('all', array(
+                                            'where' => array(
+                                                array('type', 2),
+                                            ),
+                                            'order_by' => array('position' => 'asc'),
+        ));
+        View::set_global('widgets', $widgets, false);
     }
 
 }

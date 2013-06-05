@@ -2,7 +2,7 @@
 
 	<fieldset>
 		<div class="clearfix">
-			<?php echo Form::label('Title', 'title'); ?>
+			<?php echo Form::label(Lang::get('Title'), 'title'); ?>
 
 			<div class="input">
 				<?php echo Form::input('title', Input::post('title', isset($category) ? $category->title : ''), array('class' => 'span4')); ?>
@@ -10,7 +10,7 @@
 			</div>
 		</div>
 		<div class="clearfix">
-			<?php echo Form::label('Slug', 'slug'); ?>
+			<?php echo Form::label(Lang::get('Slug'), 'slug'); ?>
 
 			<div class="input">
 				<?php echo Form::input('slug', Input::post('slug', isset($category) ? $category->slug : ''), array('class' => 'span4')); ?>
@@ -18,10 +18,10 @@
 			</div>
 		</div>
         <div class="clearfix">
-            <?php echo Form::label('Parent', 'parent_id'); ?>
+            <?php echo Form::label(Lang::get('Parent'), 'parent_id'); ?>
 
             <div class="input">
-                <?php $parent_arr = array('0' => 'None');
+                <?php $parent_arr = array('0' => Lang::get('None'));
                 foreach ($categories as $cat)
                     {
                         if (isset($category)) {
@@ -39,19 +39,19 @@
             </div>
         </div>
         <div class="clearfix">
-            <?php echo Form::label('Status'); ?>
+            <?php echo Form::label(Lang::get('Status')); ?>
 
             <div class="input">
                 <?php echo Form::select('status', Input::post('status', (isset($category)) ? $category->status : '1'),
                 array (
-                      '1' => 'Active',
-                      '0' => 'Inactive'
+                      '1' => Lang::get('Active'),
+                      '0' => Lang::get('Inactive')
                 ));?>
             </div>
         </div>
 
 		<div class="actions">
-			<?php echo Form::submit('submit', 'Save', array('class' => 'btn btn-primary')); ?>
+			<?php echo Form::submit('submit', Lang::get('Save'), array('class' => 'btn btn-primary')); ?>
 
 		</div>
 	</fieldset>

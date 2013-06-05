@@ -1,6 +1,6 @@
 <script>
     window.onload = function() {
-        CKEDITOR.replace( 'content' );
+        CKEDITOR.replace( 'content', {language: 'lv'});
     };
 </script>
 
@@ -10,7 +10,7 @@
         <div class="row">
             <div class="widget clearfix span8">
                 <div class="widget-header">
-                    <h4><?php echo Form::label('Title', 'title'); ?></h4>
+                    <h4><?php echo Form::label(Lang::get('Title'), 'title'); ?></h4>
                 </div>
                 <div class="widget-content">
                     <div class="input">
@@ -21,7 +21,7 @@
             </div>
             <div class="widget clearfix span4">
                 <div class="widget-header">
-                    <h4><?php echo Form::label('Slug', 'slug'); ?></h4>
+                    <h4><?php echo Form::label(Lang::get('Slug'), 'slug'); ?></h4>
                 </div>
                 <div class="widget-content">
                     <div class="input">
@@ -40,7 +40,7 @@
         <div class="row">
             <div class="widget clearfix span8">
                 <div class="widget-header">
-                    <h4><?php echo Form::label('Summary', 'summary'); ?></h4>
+                    <h4><?php echo Form::label(Lang::get('Summary'), 'summary'); ?></h4>
                 </div>
                 <div class="widget-content">
                     <div class="input">
@@ -51,7 +51,7 @@
             </div>
             <div class="widget clearfix span4">
                 <div class="widget-header">
-                    <h4><?php echo Form::label('Price', 'price'); ?></h4>
+                    <h4><?php echo Form::label(Lang::get('Price'), 'price'); ?></h4>
                 </div>
                 <div class="widget-content">
                     <div class="input">
@@ -62,14 +62,14 @@
             </div>
             <div class="widget clearfix span4">
                 <div class="widget-header">
-                    <h4><?php echo Form::label('Status'); ?></h4>
+                    <h4><?php echo Form::label(Lang::get('Status')); ?></h4>
                 </div>
                 <div class="widget-content">
                     <div class="input">
                         <?php echo Form::select('status', Input::post('status', (isset($item)) ? $item->status : '1'),
                         array (
-                              '1' => 'Active',
-                              '0' => 'Inactive'
+                              '1' => Lang::get('Active'),
+                              '0' => Lang::get('Inactive')
                         ));?>
                     </div>
                 </div>
@@ -78,12 +78,12 @@
         <div class="row">
             <div class="widget clearfix span3">
                 <div class="widget-header">
-                    <h4><?php echo 'Categories'; ?></h4>
+                    <h4><?php echo Lang::get('Categories'); ?></h4>
                 </div>
                 <div class="widget-content">
                     <?php foreach ($categories as $category):?>
                     <div class="input">
-                        <label><?php echo Form::checkbox('categories[]', $category->id, (isset($item->categories[$category->id])) ? true : false);?><?php echo $category->title;?></label>
+                        <label class="checkbox"><?php echo Form::checkbox('categories[]', $category->id, (isset($item->categories[$category->id])) ? true : false);?><?php echo $category->title;?></label>
                     </div>
                     <?php endforeach; ?>
                 </div>
@@ -91,23 +91,23 @@
             <div class="clearfix">
                 <div class="widget featured-image-info span3">
                     <div class="widget-header">
-                        <h4>Featured image: </h4>
+                        <h4><?php echo Lang::get('Featured image')?>: </h4>
                     </div>
                     <div class="widget-content">
-                        <p>No image chosen</p>
+                        <p><?php echo Lang::get('No image chosen')?></p>
                         <div class="input">
-                            <a href="#chooseAnImage" id="choose-image" class="btn btn-info" data-toggle="modal">Choose image</a>
+                            <a href="#chooseAnImage" id="choose-image" class="btn btn-info" data-toggle="modal"><?php echo Lang::get('Choose image')?></a>
                         </div>
                     </div>
                 </div>
                 <div class="widget gallery-info span6">
                     <div class="widget-header">
-                        <h4>Gallery images: </h4>
+                        <h4><?php echo Lang::get('Gallery images')?>: </h4>
                     </div>
                     <div class="widget-content">
-                        <p>No images chosen</p>
+                        <p><?php echo Lang::get('No images chosen')?></p>
                         <div class="input">
-                            <a href="#chooseAnImage" id="choose-image" class="btn btn-info" data-toggle="modal">Choose images</a>
+                            <a href="#chooseAnImage" id="choose-image" class="btn btn-info" data-toggle="modal"><?php echo Lang::get('Choose images')?></a>
                         </div>
                     </div>
                 </div>
@@ -127,7 +127,7 @@
             </div>
         </div>
 		<div class="actions">
-			<?php echo Form::submit('submit', 'Save', array('class' => 'btn btn-primary')); ?>
+			<?php echo Form::submit('submit', Lang::get('Save'), array('class' => 'btn btn-primary')); ?>
 
 		</div>
 	</fieldset>
@@ -137,13 +137,13 @@
 <div id="chooseAnImage" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="chooseAnImage" aria-hidden="true">
     <div class="modal-header clearfix">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="myModalLabel">Choose an image</h3>
+        <h3 id="myModalLabel"><?php echo Lang::get('Choose an image')?></h3>
     </div>
     <div class="modal-body">
         <?php echo render('admin\items/images', $images); ?>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-success btn-large span4 pull-right" data-dismiss="modal" aria-hidden="true">Save</button>
+        <button class="btn btn-success btn-large span4 pull-right" data-dismiss="modal" aria-hidden="true"><?php echo Lang::get('Save')?></button>
     </div>
 </div>
 
@@ -151,12 +151,12 @@
     $(document).ready(function(){
         $('#image-list-link').on('click', function(){
             $('#images-list').load('<?php echo Finder::search('items', 'images/index'); ?> #images-list', function(){
-                fillGalleryCheck($('#form_gallery'));
-                fillFeaturedImage($('#form_image_id'));
+                fillGalleryCheck($('#form_gallery'), '<?php echo Lang::get('No images chosen')?>');
+                fillFeaturedImage($('#form_image_id'), '<?php echo Lang::get('Remove as featured image')?>');
             });
         });
 
-        fillGalleryCheck($('#form_gallery'));
-        fillFeaturedImage($('#form_image_id'));
+        fillGalleryCheck($('#form_gallery'), '<?php echo Lang::get('No images chosen')?>');
+        fillFeaturedImage($('#form_image_id'), '<?php echo Lang::get('Remove as featured image')?>');
     });
 </script>

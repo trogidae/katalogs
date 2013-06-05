@@ -1,7 +1,7 @@
 <div class="widget">
     <div class="widget-header">
         <div class="widget-title">
-            <h4>Create a category</h4>
+            <h4><?php echo Lang::get('Create A Category'); ?></h4>
         </div>
     </div>
     <div class="widget-content">
@@ -11,4 +11,4 @@
 
 
 
-<p><?php echo Html::anchor('admin/categories', 'Back'); ?></p>
+<p><?php echo Html::anchor('admin/categories', Lang::get('Back')); ?></p>

@@ -1,27 +1,27 @@
 
 <div class="widget">
     <div class="widget-header">
-        <h4>Viewing #<?php echo $message->id; ?></h4>
+        <h4><?php echo Lang::get('Message')?> #<?php echo $message->id; ?></h4>
     </div>
     <div class="widget-content">
         <p>
-            <strong>Email:</strong>
+            <strong><?php echo Lang::get('Email')?>:</strong>
             <?php echo $message->email; ?></p>
         <p>
-            <strong>Phone:</strong>
+            <strong><?php echo Lang::get('Phone')?>:</strong>
             <?php echo $message->phone; ?></p>
         <p>
-            <strong>Name:</strong>
+            <strong><?php echo Lang::get('Name')?>:</strong>
             <?php echo $message->name; ?></p>
         <p>
-            <strong>Message:</strong>
+            <strong><?php echo Lang::get('Message')?>:</strong>
             <?php echo $message->message; ?></p>
 
         <p>
-            <strong>Time sent:</strong>
+            <strong><?php echo Lang::get('Time sent')?>:</strong>
             <?php echo Date::forge($message->created_at)->set_timezone('Europe/Riga')->format("%d/%m/%Y %H:%M"); ?></p>
     </div>
 </div>
 
 
-<?php echo Html::anchor('admin/messages', 'Back'); ?>
+<?php echo Html::anchor('admin/messages', Lang::get('Back')); ?>

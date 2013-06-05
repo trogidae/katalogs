@@ -1,23 +1,35 @@
 <?php
-
+/**
+ * Klase, kas kontrolē administrācijas paneli
+ *
+ * Autors: Dana Kukaine
+ * Izveidots: 4.03.2013.
+ * Pēdējo reizi mainīts: 01.06.2013.
+ */
 class Controller_Admin extends Controller_Base
 {
 	public $template = 'admin/template';
 
-	public function before()
+    /**
+     * Funkcija, kas izpildās pirms citām funkcijām, kas pieder klasei Controller_Admin
+     * pārbauda, vai lietotājam ir pieeja administracijas panelī
+     */
+    public function before()
 	{
 		parent::before();
 
 		if (Request::active()->controller !== 'Controller_Admin' or ! in_array(Request::active()->action, array('login', 'logout')))
 		{
+            //Pārbauda vai lietotājam ir pieeja admin panelim
 			if (Auth::check())
 			{
 				if ( ! Auth::member(100) && ! Auth::member(50) )
 				{
-					Session::set_flash('error', e('You don\'t have access to the admin panel'));
+					Session::set_flash('error', e(Lang::get('No access')));
 					Response::redirect('/');
 				}
 			}
+            //Ja nav pieeja, tad aizsūta atpakaļ uz pieteikšanās lapu
 			else
 			{
 				Response::redirect('admin/login');
@@ -25,48 +37,56 @@ class Controller_Admin extends Controller_Base
 		}
 	}
 
-	public function action_login()
+    /**
+     * Veido administrācijas paneļa pieteikšanās lapu, apstrādā ievadītos datus
+     */
+    public function action_login()
 	{
-		// Already logged in
+		// Ja lietotājs jau ielogojies, tad pārsūta uz admin paneļa sākumlapu
 		Auth::check() and Response::redirect('admin');
 
 		$val = Validation::forge();
 
 		if (Input::method() == 'POST')
 		{
-			$val->add('email', 'Email or Username')
+            //Izveido vaildācijas noteikumus
+			$val->add('email', Lang::get('Email or Username'))
 			    ->add_rule('required');
-			$val->add('password', 'Password')
+			$val->add('password', Lang::get('Password'))
 			    ->add_rule('required');
 
 			if ($val->run())
 			{
 				$auth = Auth::instance();
 
-				// check the credentials. This assumes that you have the previous table created
+				// Pārbauda pieteikšanās datus
 				if (Auth::check() or $auth->login(Input::post('email'), Input::post('password')))
 				{
-					// credentials ok, go right in
+					// Ja pieteikšanās dati pareizi, tad lietotājs ir pieteicies sistēmā
 					$current_user = Model_User::find_by_username(Auth::get_screen_name());
-					Session::set_flash('success', e('Welcome, '.$current_user->username));
+					Session::set_flash('success', e(Lang::get('Welcome, ').$current_user->username));
 					Response::redirect('admin');
 				}
 				else
 				{
-					$this->template->set_global('login_error', 'Fail');
+                    Session::set_flash('error', e(Lang::get('Wrong log in')));
+                    Response::redirect('admin/login');
 				}
 			}
+            else {
+                if (Input::method() == 'POST')
+                {
+                    Session::set_flash('error', $val->error());
+                }
+            }
 		}
-
-		$this->template->title = 'Login';
-		$this->template->content = View::forge('admin/login', array('val' => $val), false);
+        //Izsauc skatu, ja dati netika iesūtīti
+		$this->template->title = Lang::get('Log in');
+		$this->template->content = View::forge('admin/login', false);
 	}
 
 	/**
-	 * The logout action.
-	 *
-	 * @access  public
-	 * @return  void
+	 * Atteikšanās funkcija
 	 */
 	public function action_logout()
 	{
@@ -75,19 +95,14 @@ class Controller_Admin extends Controller_Base
 	}
 
 	/**
-	 * The index action.
-	 *
-	 * @access  public
-	 * @return  void
+	 * Izveido un izsauc administrācijas paneļa sākuma lapu "Darbgalds"
 	 */
 	public function action_index()
 	{
         $data['items'] = Model_Item::find('all', array('order_by' => array('created_at' => 'desc'), 'limit' => 5));
         $data['messages'] = Model_Message::find('all', array('order_by' => array('created_at' => 'desc'), 'limit' => 5));
-		$this->template->title = 'Dashboard';
+		$this->template->title = Lang::get('Dashboard');
 		$this->template->content = View::forge('admin/dashboard', $data);
 	}
 
 }
-
-/* End of file admin.php */

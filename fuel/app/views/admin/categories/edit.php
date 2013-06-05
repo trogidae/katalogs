@@ -1,7 +1,7 @@
 <div class="widget">
     <div class="widget-header">
         <div class="widget-title">
-            <h4>Edit a category</h4>
+            <h4><?php echo Lang::get('Edit A Category'); ?></h4>
         </div>
     </div>
     <div class="widget-content">
@@ -10,5 +10,4 @@
 </div>
 
 <p>
-	<?php echo Html::anchor('admin/categories/view/'.$category->id, 'View'); ?> |
-	<?php echo Html::anchor('admin/categories', 'Back'); ?></p>
+	<?php echo Html::anchor('admin/categories', Lang::get('Back')); ?></p>

@@ -1,25 +1,22 @@
 <div class="widget">
     <div class="widget-header">
-        <h4>Viewing #<?php echo $user->id; ?></h4>
+        <h4><?php echo Lang::get('User'); ?> #<?php echo $user->id; ?></h4>
     </div>
     <div class="widget-content">
         <p>
-            <strong>Username:</strong>
+            <strong><?php echo Lang::get('Username'); ?>:</strong>
             <?php echo $user->username; ?></p>
         <p>
-            <strong>Group:</strong>
+            <strong><?php echo Lang::get('Group'); ?>:</strong>
             <?php echo $user->group; ?></p>
         <p>
-            <strong>Email:</strong>
+            <strong><?php echo Lang::get('Email'); ?>:</strong>
             <a href="mailto:<?php echo $user->email; ?>"><?php echo $user->email; ?></a></p>
         <p>
-            <strong>Last login:</strong>
+            <strong><?php echo Lang::get('Last login'); ?>:</strong>
             <?php echo $user->last_login; ?></p>
-        <p>
-            <strong>Profile fields:</strong>
-            <?php $user->profile_fields; ?></p>
     </div>
 </div>
 
-<?php echo Html::anchor('admin/users/edit/'.$user->id, 'Edit'); ?> |
-<?php echo Html::anchor('admin/users', 'Back'); ?>
+<?php if (Auth::has_access('users.write')) echo Html::anchor('admin/users/edit/'.$user->id, Lang::get('Edit')); ?> |
+<?php echo Html::anchor('admin/users', Lang::get('Back')); ?>

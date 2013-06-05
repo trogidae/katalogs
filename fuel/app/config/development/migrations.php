@@ -11,8 +11,9 @@ return array(
 				2 => '003_create_items',
 				3 => '004_create_categories',
 				4 => '006_create_images',
-				5 => '007_create_settings',
-				6 => '008_create_messages',
+				5 => '008_create_messages',
+				6 => '009_create_widgets',
+				7 => '010_create_settings',
 			),
 		),
 		'module' => 

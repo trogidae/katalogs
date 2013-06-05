@@ -1,20 +1,20 @@
-<h2>Message from DrukasPasaule.lv contact form</h2>
+<h2><?php echo Lang::get('Message from :sitename contact form', array( 'sitename' => $settings['site_title']->value))?></h2>
 
 <p>
-    <strong>Your email:</strong>
+    <strong><?php echo Lang::get('Email')?>:</strong>
     <?php echo $message->email; ?></p>
 <p>
-    <strong>Your phone:</strong>
+    <strong><?php echo Lang::get('Phone')?>:</strong>
     <?php echo $message->phone; ?></p>
 <p>
-    <strong>Your name:</strong>
+    <strong><?php echo Lang::get('Name')?>:</strong>
     <?php echo $message->name; ?></p>
 <p>
-    <strong>Message:</strong>
+    <strong><?php echo Lang::get('Message')?>:</strong>
     <?php echo $message->message; ?></p>
 
 <p>
-    <strong>Time sent:</strong>
+    <strong><?php echo Lang::get('Time sent')?>:</strong>
     <?php echo Date::forge($message->created_at)->set_timezone('Europe/Riga')->format("%d/%m/%Y %H:%M"); ?></p>
 
-<p>Message sent from <a href="http://drukaspasaule.lv" target="_blank" title="DrukasPasaule.lv">DrukasPasaule.lv</a></p>
+<p><?php echo Lang::get('Message sent from')?> <a href="<?php Uri::base(false) ?>"><?php echo $settings['site_title']->value; ?></a></p>

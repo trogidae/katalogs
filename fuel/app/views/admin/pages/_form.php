@@ -1,6 +1,6 @@
 <script>
     window.onload = function() {
-        CKEDITOR.replace( 'content' );
+        CKEDITOR.replace( 'content', {language: 'lv'} );
     };
 </script>
 
@@ -10,7 +10,7 @@
         <div class="row">
             <div class="widget clearfix span8">
                 <div class="widget-header">
-                    <h4><?php echo Form::label('Title', 'title'); ?></h4>
+                    <h4><?php echo Form::label(Lang::get('Title'), 'title'); ?></h4>
                 </div>
                 <div class="widget-content">
                     <div class="input">
@@ -21,7 +21,7 @@
             </div>
             <div class="widget clearfix span4">
                 <div class="widget-header">
-                    <h4><?php echo Form::label('Slug', 'slug'); ?></h4>
+                    <h4><?php echo Form::label(Lang::get('Slug'), 'slug'); ?></h4>
                 </div>
                 <div class="widget-content">
                     <div class="input">
@@ -41,7 +41,7 @@
         <div class="row">
             <div class="widget clearfix span8">
                 <div class="widget-header">
-                    <h4><?php echo Form::label('Summary', 'summary'); ?></h4>
+                    <h4><?php echo Form::label(Lang::get('Summary'), 'summary'); ?></h4>
                 </div>
                 <div class="widget-content">
                     <div class="input">
@@ -52,14 +52,14 @@
             </div>
             <div class="widget clearfix span4">
                 <div class="widget-header">
-                    <h4><?php echo Form::label('Status'); ?></h4>
+                    <h4><?php echo Form::label(Lang::get('Status')); ?></h4>
                 </div>
                 <div class="widget-content">
                     <div class="input">
                         <?php echo Form::select('status', Input::post('status', (isset($page)) ? $page->status : '1'),
                         array (
-                              '1' => 'Active',
-                              '0' => 'Inactive'
+                              '1' => Lang::get('Active'),
+                              '0' => Lang::get('Inactive')
                         ));?>
                     </div>
                 </div>
@@ -71,7 +71,7 @@
 			</div>
 		</div>
 		<div class="actions">
-			<?php echo Form::submit('submit', 'Save', array('class' => 'btn btn-primary')); ?>
+			<?php echo Form::submit('submit', Lang::get('Save'), array('class' => 'btn btn-primary')); ?>
 
 		</div>
 	</fieldset>
